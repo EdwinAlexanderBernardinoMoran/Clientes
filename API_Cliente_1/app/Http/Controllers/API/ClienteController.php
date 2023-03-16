@@ -4,10 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use App\Http\Resources\V1\ClienteResource;
 
-class PostController extends Controller
+class ClienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $cliente = Cliente::latest()->get();
-        return response()->json(['cliente' => $cliente], 200);
+        // Devuelve todos los datos paginados de la DB
+        return ClienteResource::collection(Cliente::latest()->paginate());
+        // return Cliente::latest()->paginate();
     }
 
     /**
@@ -67,15 +69,7 @@ class PostController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        $resource = Cliente::find($cliente);
-
-        if (!$resource) {
-            return response()->json([
-                'message' => 'Resource not found'
-            ], 404);
-        }
-
-        return response()->json($resource);
+        return new ClienteResource($cliente);
     }
 
     /**
@@ -85,26 +79,11 @@ class PostController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $id)
+    public function update(Request $request, Cliente $cliente)
     {
-        $request->validate([
-            'nombres' => 'required',
-            'apellidos' => 'required',
-            'email' => 'required|email',
-            'fecha_nacimiento' => 'required|date',
-            'departamento' => 'required',
-            'municipio' => 'required',
-            'direccion' => 'required',
-            'dui' => 'required|min:10',
-            'telefono' => 'required|min:8',
-            'sexo' => 'required',
-        ]);
-
-        $cliente = Cliente::findOrFail($id) ;
-        $cliente = $request->all();
-        $cliente = Cliente::where('id', '=', $id)->update($cliente);
-        return response()->json(['cliente' => $cliente], 200);
+        //
     }
+
     /**
      * Remove the specified resource from storage.
      *
