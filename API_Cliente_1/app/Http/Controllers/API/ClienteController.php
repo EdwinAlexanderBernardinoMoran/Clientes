@@ -97,7 +97,10 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        $cliente->delete($cliente);
-        return response()->json('Cliente Eliminado Exitosamente !!', 204);
+        if ($cliente->delete($cliente)) {
+
+            return response()->json(['response' => 'Usuario Eliminado Exitosamente !!'], 201);
+        }
+
     }
 }
