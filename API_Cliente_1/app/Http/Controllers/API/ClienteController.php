@@ -79,9 +79,14 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request,Cliente $cliente)
     {
-        //
+
+        $cliente->update($request->all());
+        return response()->json($cliente, 200);
+
+        // return new ClienteResource($cliente);
+
     }
 
     /**
