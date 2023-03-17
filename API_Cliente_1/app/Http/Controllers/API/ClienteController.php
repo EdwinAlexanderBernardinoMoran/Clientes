@@ -58,7 +58,7 @@ class ClienteController extends Controller
         $cliente->updated_at = Carbon::now();
         $cliente->save();
 
-        return response()->json('Usuario Creado Exitosamente !!', 201);
+        return response()->json(['response' => 'Usuario Creado Exitosamente !!'], 201);
     }
 
     /**
@@ -97,6 +97,7 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        //
+        $cliente->delete($cliente);
+        return response()->json('Cliente Eliminado Exitosamente !!', 204);
     }
 }
