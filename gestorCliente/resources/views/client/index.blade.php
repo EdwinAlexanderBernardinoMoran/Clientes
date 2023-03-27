@@ -18,7 +18,7 @@
               </tr>
             </thead>
             <tbody>
-                @foreach ($clientes['data'] as $key => $cliente)
+                @foreach ($clientes as $cliente)
                 <tr>
                     <td>{{ $cliente['id'] }}</td>
                     <td>{{ $cliente['nombres']}}</td>

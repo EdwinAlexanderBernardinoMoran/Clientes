@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Resources\V1\ClienteResource;
 
 class ClienteController extends Controller
 {
@@ -18,7 +17,7 @@ class ClienteController extends Controller
     public function index()
     {
         // Devuelve todos los datos paginados de la DB
-        return ClienteResource::collection(Cliente::latest()->paginate());
+        return Cliente::all();
         // return Cliente::latest()->paginate();
     }
 
@@ -69,7 +68,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        return new ClienteResource($cliente);
+        return response()->json($cliente, 200);
     }
 
     /**

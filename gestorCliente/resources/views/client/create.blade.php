@@ -104,7 +104,8 @@
             </div>
 
             <div class="col-12 text-center">
-              <button type="submit" class="btn btn-primary mt-5">Registrar Cliente</button>
+              <button type="submit" class="btn btn-primary mt-5 p-2">Registrar Cliente</button>
+              <a href="{{ route('index') }}" class="btn btn-danger mt-5 p-2">Cancelar Registro</a>
             </div>
         </form>
     </div>

@@ -4,7 +4,6 @@
     <div class="container">
         <div class="row">
             <form class="row g-3 needs-validation" novalidate>
-                @foreach ($clientes as $cliente)
                 {{-- Campo nombres --}}
                 <div class="col-md-4">
                     <label for="validationCustom01" class="form-label">Nombres:</label>
@@ -70,7 +69,10 @@
                         <option value="{{ $cliente['sexo']}}">{{ $cliente['sexo']}}</option>
                     </select>
                 </div>
-                @endforeach
+
+                <div class="col-12 text-center">
+                    <a href="{{ route('index') }}" class="btn btn-danger mt-5 p-2">Regresar</a>
+                </div>
             </form>
         </div>
     </div>

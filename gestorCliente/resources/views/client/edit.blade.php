@@ -3,27 +3,24 @@
 
 <div class="container mt-5">
     <h3 class="text-center mb-4">Edición de clientes</h3>
-    <form action="{{ route('update', $clientes['data']['id']) }}" method="POST" class="row g-3 needs-validation" >
+
+    <form action="{{ route('update', $clientes['id']) }}" method="POST" class="row g-3 needs-validation"  novalidate>
         @method('PUT')
         @csrf
-
-
         {{-- Campo nombres --}}
         <div class="col-md-4">
-            <label for="validationCustom01" class="form-label">Nombres:</label>
-            <input type="text" class="form-control" name="nombres" value="{{ $clientes['data']['nombres'] }}" id="validationCustom01" required placeholder="Escribe tu nombre">
-            <div class="invalid-feedback">
-                Escribe tus nombres.
-            </div>
+            <label for="nombres" class="form-label">Nombres:</label>
+            <input type="text" class="form-control" name="nombres" value="{{ $clientes['nombres'] }}" id="nombre" pattern="[a-zA-ZáéíóúÁÉÍÓÚ, ]+" required placeholder="Escribe tu nombre">
+            <div class="invalid-feedback">Por favor, ingrese un nombre válido (No se permiten numeros)</div>
+            <div class="valid-feedback">El nombre es válido</div>
         </div>
 
         {{-- Campo apellidos --}}
         <div class="col-md-4">
             <label for="validationCustom02" class="form-label">Apellidos:</label>
-            <input type="text" class="form-control" name="apellidos" value="{{ $clientes['data']['apellidos'] }}" id="validationCustom02" required placeholder="Escribe tus apellidos">
-            <div class="invalid-feedback">
-                Escribe tus apellidos
-            </div>
+            <input type="text" class="form-control" name="apellidos" value="{{ $clientes['apellidos'] }}" id="validationCustom02" pattern="[a-zA-ZáéíóúÁÉÍÓÚ, ]+" required placeholder="Escribe tus apellidos">
+            <div class="invalid-feedback">Por favor, ingrese sus apellidos (No se permiten numeros)</div>
+            <div class="valid-feedback">El apellidos es válido</div>
         </div>
 
         {{-- Campo Email --}}
@@ -31,10 +28,11 @@
             <label for="validationCustomUsername" class="form-label">Email:</label>
             <div class="input-group has-validation">
                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                <input type="text" class="form-control" name="email" value="{{ $clientes['data']['email'] }}" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required placeholder="Escribe tu email">
+                <input type="email" class="form-control" name="email" value="{{ $clientes['email'] }}" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required placeholder="Escribe tu email">
                 <div class="invalid-feedback">
                     Escribe tu email.
                 </div>
+                <div class="valid-feedback">Email Valido !</div>
             </div>
         </div>
 
@@ -42,17 +40,18 @@
         <div class="col-md-4">
             <label for="validationCustomUsername" class="form-label">Fecha Nacimiento:</label>
             <div class="input-group has-validation">
-                <input type="date" class="form-control" name="fecha_nacimiento" value="{{ $clientes['data']['fecha_nacimiento'] }}" id="validationCustom03" aria-describedby="inputGroupPrepend" required>
+                <input type="date" class="form-control" name="fecha_nacimiento" value="{{ $clientes['fecha_nacimiento'] }}" id="validationCustom03" aria-describedby="inputGroupPrepend" max="2008-03-21" required>
                 <div class="invalid-feedback">
-                    Fecha Nacmmiento
+                    Ingresa tu fecha de nacimiento, ¡¡ Debes ser mayor a de 15 años para pder registrarte !!.
                 </div>
+                <div class="valid-feedback">Fecha De Nacimiento Valida !!</div>
             </div>
         </div>
 
         {{-- Campo Departamento --}}
         <div class="col-md-4">
             <label for="validationCustom04" class="form-label">Departamento:</label>
-            <input type="text" class="form-control" name="departamento" value="{{ $clientes['data']['departamento'] }}" id="validationCustom04" required placeholder="Escribe tu Departamento">
+            <input type="text" class="form-control" name="departamento" value="{{ $clientes['departamento'] }}" id="validationCustom04" required placeholder="Escribe tu Departamento">
             <div class="invalid-feedback">
                 Escribe tu Departamento
             </div>
@@ -61,7 +60,7 @@
         {{-- Campo Municipio --}}
         <div class="col-md-4">
             <label for="validationCustom05" class="form-label">Municipio:</label>
-            <input type="text" class="form-control" name="municipio" value="{{ $clientes['data']['municipio'] }}" id="validationCustom05" required placeholder="Escribe tu Municipio">
+            <input type="text" class="form-control" name="municipio" value="{{ $clientes['municipio'] }}" id="validationCustom05" required placeholder="Escribe tu Municipio">
             <div class="invalid-feedback">
                 Escribe tu Municipio
             </div>
@@ -70,34 +69,35 @@
         {{-- Campo Direccion --}}
         <div class="col-md-4">
             <label for="validationCustom06" class="form-label">Dirección:</label>
-            <input type="text" class="form-control" name="direccion" value="{{ $clientes['data']['direccion'] }}" id="validationCustom06" required placeholder="Escribe tu dirección">
-            <div class="invalid-feedback">
-                Escribe tu Dirección
-            </div>
+            <input type="text" class="form-control" name="direccion" value="{{ $clientes['direccion'] }}" id="validationCustom06" pattern="[a-zA-ZáéíóúÁÉÍÓÚ., ]+" required placeholder="Escribe tu dirección">
+            <div class="invalid-feedback">Por favor, ingrese una direccion válida (No se permiten numeros)</div>
+            <div class="valid-feedback">El dirección es válida !</div>
         </div>
 
         {{-- Campo Dui --}}
         <div class="col-md-2">
-            <label for="validationCustom07" class="form-label">Dui:</label>
-            <input type="text" class="form-control" name="dui" value="{{ $clientes['data']['dui'] }}" id="validationCustom07" required placeholder="00000000-0">
+            <label for="dui" class="form-label">Dui:</label>
+            <input type="text" class="form-control minlength" name="dui" value="{{ $clientes['dui'] }}" id="dui" required placeholder="Ingresa tu DUI" onkeyup="formatearDUI()" required>
             <div class="invalid-feedback">
-                Escribe tú numero de DUI
+                Tu numero de DUI debe tener 10 digitos (sin espacios ni guiones).
             </div>
+            <div class="valid-feedback">Tu numero de DUI, es valido !</div>
         </div>
 
         {{-- Campo Telefono --}}
         <div class="col-md-2">
             <label for="validationCustom08" class="form-label">Telefono:</label>
-            <input type="text" class="form-control" name="telefono" value="{{ $clientes['data']['telefono'] }}" id="validationCustom08" required placeholder="0000-0000">
+            <input type="tel" class="form-control" id="telefono" name="telefono" value="{{ $clientes['telefono'] }}" minlength="8" maxlength="9" onkeyup="formatearTelefono()" required>
             <div class="invalid-feedback">
                 Escribe tu numero de telefono.
             </div>
+            <div class="valid-feedback">Numero de telefono correcto !</div>
         </div>
 
         <div class="col-md-3">
             <label for="validationCustom04" class="form-label">Sexo:</label>
             <select class="form-select" name="sexo" id="validationCustom04" required>
-                <option selected disabled value="">{{ $clientes['data']['sexo'] }}</option>
+                <option selected disabled value="">{{ $clientes['sexo'] }}</option>
                 <option value="Masculino">Masculino</option>
                 <option value="Femenino">Femenino</option>
             </select>
@@ -107,7 +107,8 @@
         </div>
 
         <div class="col-12 text-center">
-          <button class="btn btn-primary mt-5" type="submit">Registrar Cliente</button>
+          <button type="submit" class="btn btn-primary mt-5 p-2">Registrar Cliente</button>
+          <a href="{{ route('index') }}" class="btn btn-danger mt-5 p-2">Cancelar Registro</a>
         </div>
     </form>
 </div>

@@ -68,8 +68,8 @@ class ClienteController extends Controller
     {
         $url = env('URL_SERVER_API', 'http://127.0.0.1');
         $response = Http::get($url.'/cliente/'.$id);
-        $clientes = $response->json();
-        return view('client.show', compact('clientes'));
+        $cliente = $response->json();
+        return view('client.show', compact('cliente'));
     }
 
     /**
